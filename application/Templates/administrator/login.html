@@ -1,0 +1,92 @@
+{% extends "client/base.html" %}
+
+{% block title %}
+Administrator Login
+{% endblock %}
+
+
+{% block content %}
+
+        <!--
+        <section style="max-height:600px;" class="mx-20 my-[5%] px-[5%] py-10 rounded-none dm-sans-400 bg-green-300">
+            <div class="flex items-center justify-between">
+                <div class="p-10">
+                    <div>
+                        <h2 class="font-bold text-3xl mb-5">Create Alert</h2>
+                        <p class="mb-5">If you already have an account - Welcome back! Please login to manage your job alerts and keep track of your saved jobs.</p>
+                        <a href="" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Log In Here</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <section style="" class="mx-5 md:mx-20 my-[5%] px-[5%] py-10 rounded-none dm-sans-400 bg-green-300">
+            <div class="md:flex items-center justify-between">
+                <div class="p-5 md:p-10 w-[100%]">
+                    <div>
+                        <h2 class="font-bold text-3xl mb-5">Administrator Login</h2>
+                    </div>
+                    <div class="mt-5">
+                        <form class="mt-5 dm-sans-300" id="loginForm">
+                            <div class="gap-10 mb-5">
+                                <div class="mb-5">
+                                    <div class="">
+                                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Emal</label>
+                                      <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <div class="">
+                                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                      <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Login</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- Footer -->
+ {% endblock %}
+
+ {% block js %}
+
+<script>
+    $("#loginForm").submit(function(event){
+        event.preventDefault();
+        const email = $("#email").val();
+        const password = $("#password").val();
+        $.post("{% url process_admin_login %}", {
+            'email': email,
+            'password': password,
+        }, function (response){
+            const result = JSON.parse(response);
+            switch(result.status){
+                case 'success':
+                    Swal.fire({
+                        title: "Authentication Successful",
+                        text: result.msg,
+                        icon: "success",
+                    });
+                    setTimeout(function(){window.location = "{% url administrator %}"}, 3000);
+                    break;
+                case 'error':
+                    Swal.fire({
+                        title: 'Error!',
+                        text: result.msg,
+                        icon: 'error',
+                    })
+                    break;
+            }
+        })
+    })
+</script>
+
+ {% endblock %}

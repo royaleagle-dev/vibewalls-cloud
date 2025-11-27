@@ -1,0 +1,145 @@
+{% extends "administrator/base.html" %}
+
+{% block other_meta %}
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+<link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
+<style>
+    .filepond--drop-level, .filepond--browser{
+        height: 200px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="px-20 py-20">
+    <div class="flex gap-10">
+        <div class="w-1/2">
+            <input type="file" style="height:200px !important;">
+        </div>
+        <div class="w-1/2">
+            <h3 class="font-semibold montserrat text-2xl mb-5">Add New Wallpaper</h3>
+                <form class="max-w-lg" id = "form">
+                    <div class="flex gap-5">
+                        <div class="mb-5 w-1/2">
+                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <input type="text" id="title" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" required />
+                        </div>
+                        <div class="mb-5 w-1/2">
+                            <label for="alt_text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alt Text</label>
+                            <input type="text" id="alt_text" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" required />
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="flex gap-5">
+                        <div class="mb-5 w-1/2">
+                            <label for="device_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Device Type</label>
+                            <select id="device_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="mobile">Mobile</option>
+                                <option value="desktop">Desktop</option>
+                            </select>
+                        </div>
+                        <div class="mb-5 w-1/2">
+                            <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categories</label>
+                            <select multiple id="categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @php foreach($categories as $category): @endphp
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @php endforeach; @endphp
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-5">
+                        <div class="mb-5 w-1/2">
+                            <label for="meta_keywords" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta Keywords</label>
+                            <input type="meta_keywords" id="meta_keywords" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" required />
+                        </div>
+                        <div class="mb-5 w-1/2">
+                            <label for="meta_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta Description</label>
+                            <input type="meta_description" id="meta_description" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Wallpaper</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script>
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    const inputElement = document.querySelector('input[type="file"]');
+    const pond = FilePond.create(inputElement, {
+        instantUpload: false,
+        allowProcess: false,
+        name: 'image_upload',
+    });
+</script>
+<script>
+    document.getElementById('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const alt_text = document.getElementById('alt_text').value;
+        const meta_keywords = document.getElementById('meta_keywords').value;
+        const meta_description = document.getElementById('meta_description').value;
+        const device_type = document.getElementById('device_type').value;
+
+        let categories = '';
+        const cat_element = document.getElementById('categories')
+        const selected = cat_element.selectedOptions;
+        for (const element of selected) {
+            categories += `${element.getAttribute('value')},`
+        }
+
+
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('alt_text', alt_text);
+        formData.append('meta_keywords', meta_keywords);
+        formData.append('meta_description', meta_description);
+        formData.append('categories', categories);
+        formData.append('device_type', device_type);
+
+        const files = pond.getFiles();
+        if (files.length > 0) {
+            formData.append('image_upload', files[0].file, files[0].filename);
+        } else {
+            alert('Please select a file.');
+            return;
+        }
+
+        fetch('{% url add_wallpaper %}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log(JSON.parse(result));
+            const data = JSON.parse(result);
+            const toaster = new ToasterUi();
+            toaster.addToast(`${data.message}`, "success", {
+                autoClose: true,
+                duration: 3000,
+                // Custom Styles, Please Edit the keys of the object to change the styles
+                styles: {},
+                onClose: ()=>{window.location.reload()
+                    allowHtml: true
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+{% endblock %}

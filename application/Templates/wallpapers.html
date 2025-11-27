@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}
+– Download Free HD Wallpapers & Backgrounds for Desktop, Mobile
+{% endblock %}
+
+{% block meta %}
+<meta name="keywords" content="hd wallpapers, desktop backgrounds, mobile wallpapers, tablet wallpapers, nature wallpapers, abstract wallpapers, tech wallpapers, fantasy wallpapers, 4k wallpapers, full hd wallpapers, vibe walls, vibe walls wallpapers">
+<meta name="description" content="Explore thousands of stunning HD wallpapers and backgrounds for desktop, mobile, and tablet devices. Download high-quality nature, abstract, tech, and fantasy wallpapers — all free on VibeWalls.">
+{% endblock %}
+
+
+{% block content %}
+<!-- <section 
+  style="height:100vh; background: linear-gradient(88deg,rgba(0,0,0,1), rgba(0,0,0,0.4)), url('{{ $hero_bg->image_link }}') ;display:flex;background-repeat:no-repeat;background-size:cover;" 
+  class="montserrat bg-gray-100 relative text-black py-16 px-5 md:px-20 flex gap-10 items-center justify-center flex-col md:flex-row">
+    <div class="md:w-3/4 text-white text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Beautiful Wallpapers</h1>
+      <p class="text-lg mb-6 mx-auto" style="max-width:80%;">Free wallpapers for desktop, mobile, and tablet. Transform your screens with stunning visuals from our curated collection.</p>
+    </div>
+</section> -->
+
+<!-- ALL WALLPAPERS SECTION -->
+  <section class="py-16 mx-auto px-5 md:px-20 md:py-20">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+      <div class="text-center pt-10 md:pt-0">
+        <h2 class="mb-3 text-2xl md:text-3xl font-bold text-gray-900 montserrat">Download Free HD Wallpapers & Backgrounds for Desktop, Mobile</h2>
+        <p class="text-sm text-gray-600 montserrat">Our wallpapers are designed to fit every screen size and resolution — from Full HD to 4K — so your display always looks sharp and vibrant. Browse popular categories, download your favorites instantly, and refresh your digital space today with VibeWalls.</p>
+      </div>
+    </div>
+
+    <!-- Grid of Wallpapers -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <!-- Wallpaper Card 1 -->
+       @php foreach($wallpapers as $wallpaper): @endphp
+      <div class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow mb-5 md:mb-0">
+        <a href="{% url wallpaper %}/{{ $wallpaper->id }}">
+        <img 
+          src="{{ $wallpaper->image_link }}"
+          loading="lazy"
+          alt="{{ $wallpaper->alt_text }}"
+          class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        <div class="absolute top-2 right-2 bg-emerald-500 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          5K
+        </div>
+        <div class="mt-3 p-2">
+          <h3 class="font-medium text-gray-900 text-sm"><a href="{% url wallpaper %}/{{ $wallpaper->id }}">{{ $wallpaper->image_name }}</a></h3>
+          <p class="text-xs text-gray-500">1.2K views • 5K downloads</p>
+        </div>
+        </a>
+      </div>
+      @php endforeach; @endphp
+    </div>
+
+    <!-- Load More Button -->
+    <div class="flex justify-center mt-12">
+      <!-- <div class="">
+      <a href="#" class="bg-green-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-green-500 text-sm flex justify-center gap-3">
+        <span>More categories</span>
+      </a>
+      </div> -->
+    </div>
+  </section>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

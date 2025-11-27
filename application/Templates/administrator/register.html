@@ -1,0 +1,184 @@
+{% extends "client/base.html" %}
+
+{% block title %}
+Create Admin Account
+{% endblock %}
+
+
+{% block content %}
+        <section style="max-height:px;" class="mx-5 md:mx-20 my-[5%] px-5 md:px-[5%] bg-green-300 rounded-3xl">
+            <div class="md:flex items-center justify-between">
+                <div class="md:w-1/2 p-5 md:p-10 py-[10%]">
+                    <h1 class="dm-sans-300 text-3xl md:text-5xl font-bold">Create Admin Account</h1>
+                    <p class="mt-5 dm-sans-300">
+                        Accounts for admins only
+                    </p>
+                    <div class="mt-5">
+                        <a href="" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Start Now
+                            <span class="fas fa-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 p-10 flex justify-end">
+                    <!--
+                    <svg style="width:300px;height:auto;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 5C3 2.23858 5.23858 0 8 0C10.7614 0 13 2.23858 13 5V8L15 10V12H1V10L3 8V5Z" fill="#000000"/>
+                        <path d="M7.99999 16C6.69378 16 5.58254 15.1652 5.1707 14H10.8293C10.4175 15.1652 9.30621 16 7.99999 16Z" fill="#000000"/>
+                    </svg>
+                    -->
+                </div>
+            </div>
+        </section>
+
+        <!--
+        <section style="max-height:600px;" class="mx-20 my-[5%] px-[5%] py-10 rounded-none dm-sans-400 bg-green-300">
+            <div class="flex items-center justify-between">
+                <div class="p-10">
+                    <div>
+                        <h2 class="font-bold text-3xl mb-5">Create Alert</h2>
+                        <p class="mb-5">If you already have an account - Welcome back! Please login to manage your job alerts and keep track of your saved jobs.</p>
+                        <a href="" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Log In Here</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <section style="" class="mx-5 md:mx-20 my-[5%] px-5 md:px-[5%] py-10 rounded-none dm-sans-400 bg-green-300">
+            <div class="flex items-center justify-between">
+                <div class="md:p-10 w-[100%]">
+                    <div>
+                        <h2 class="font-bold text-3xl mb-5">Register</h2>
+                    </div>
+                    <div class="mt-5">
+                        <form class="mt-5 dm-sans-300" id="registerForm">
+                            <div class="md:flex items-center gap-10 mb-5">
+                                <div class="md:w-1/2">
+                                    <div class="">
+                                      <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Firstname</label>
+                                      <input type="text" id="firstname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <div class="">
+                                      <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lastname</label>
+                                      <input type="text" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:flex items-center gap-10 mb-5">
+                                <div class="md:w-1/2">
+                                    <div class="">
+                                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                      <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+
+                                <div class="md:w-1/2">
+                                    <div class="">
+                                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                      <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md:flex items-center gap-10 mb-5">
+                                <div class="md:w-1/2">
+                                    <div class="">
+                                      <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                                      <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex mb-5">
+                                <div class="flex items-center h-5">
+                                    <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" required>
+                                </div>
+                                <div class="ms-2 text-sm">
+                                    <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">I agree to the Terms of this website</label>
+                                    <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Read our privacy policy</p>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Register</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- Footer -->
+ {% endblock %}
+
+ {% block js %}
+
+<script>
+    $("#registerForm").submit(function(event){
+        event.preventDefault();
+        
+        const firstname = $("#firstname").val();
+        const lastname = $("#lastname").val();
+        const password = $("#password").val();
+        const confirm_password = $("#confirm_password").val();
+        const email = $("#email").val()
+
+        const formData = new FormData();
+        formData.append('firstname', firstname);
+        formData.append('lastname', lastname);
+        formData.append('password', password);
+        formData.append('email', email);
+
+        if(password !== confirm_password){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Passwords do not match. Please try again',
+                icon: 'error',
+                confirmButtonText: 'Close'
+            })
+            return 0;
+        }else{
+            $.ajax({
+                url: "{% url admin_register_processor %}",
+                type: "POST",
+                data: formData,
+                processData: false, // Important: Prevent jQuery from processing data
+                contentType: false, // Important: Prevent jQuery from setting content type
+                success: function (response) {
+                    const result = JSON.parse(response);
+                    switch(result.status){
+                        case 'success':
+                            Swal.fire({
+                                title: "Registration Success",
+                                text: result.msg,
+                                icon: "success",
+                            });
+                            setTimeout(function(){window.location = "{% url login %}"}, 3000);
+                            break;
+                        case 'error':
+                            Swal.fire({
+                                title: "Error!",
+                                text: result.msg,
+                                icon: "error",
+                            })
+                            break;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#response").html(`<p style="color: red;">Error: ${textStatus} - ${errorThrown}</p>`);
+                }
+            })
+        }
+
+
+
+
+    })
+</script>
+
+ {% endblock %}
