@@ -35,21 +35,13 @@ class Template{
         if ($this->isLocalEnv()) {
             $this->cacheDir = '../public/cache/'; // Local development
         } else {
-            $this->cacheDir = "/tmp/cache/"; // Cloud Run
+            $this->cacheDir = "/tmp/"; // Cloud Run
         }
     }
 
     private function create_cache_file($code, $data){
         //$filePath = "../public/cache/_cache.php";
-        $filePath = $this->cacheDir.'_cache.php';
-        if (!is_dir($this->cacheDir)) {
-            if (!mkdir($this->cacheDir, 0777, true)) {
-                error_log("Failed to create cache directory: " . $this->cacheDir);
-                // Fallback: use /tmp directly without subdirectory
-                $this->cacheDir = '/tmp/';
-                $filePath = $this->cacheDir . '_cache.php';
-            }
-        }
+        $filePath = $this->cacheDir.'_cache.php';        
         file_put_contents($filePath, $code);
         extract($data, EXTR_SKIP);
         require_once $filePath;
