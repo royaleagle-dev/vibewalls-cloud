@@ -1,6 +1,10 @@
 <?php
 
 class Index extends Controller {
+    
+    private $UserModel;
+    private $WallpaperModel;
+
 
     public function __construct(){
         $this->UserModel = $this->loadModel('UserModel');

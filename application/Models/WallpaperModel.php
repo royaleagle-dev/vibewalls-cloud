@@ -1,6 +1,9 @@
 <?php
 
 class WallpaperModel {
+    private $db;
+    private $tbl;
+
     public function __construct(){
         $this->db = new Database();
         $this->tbl = 'wallpapers';
