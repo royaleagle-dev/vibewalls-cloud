@@ -11,6 +11,17 @@ class Database {
     
     private $cloudStoragePath;
     private $cloudTempPath;
+    private $shutdownUpload;
+
+    public function __construct(){   
+        $this->cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/vibewalls.sqlite';
+        $this->cloudTempPath = '/tmp/vibewalls.sqlite';
+        if($this->isLocalEnv()){
+            $this->pdo = $this->getLocalSqliteConnection();
+        }else{
+            $this->pdo = $this->getCloudSqliteConnection();
+        }
+    }
 
     public function downloadFromCloud() {
         $fileContent = file_get_contents($this->cloudStoragePath);
@@ -28,19 +39,7 @@ class Database {
         }
         return true;
     }
-
-
-    public function __construct(){
-        
-        $this->cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/vibewalls.sqlite';
-        $this->cloudTempPath = '/tmp/vibewalls.sqlite';
-
-        if($this->isLocalEnv()){
-            $this->pdo = $this->getLocalSqliteConnection();
-        }else{
-            $this->pdo = $this->getCloudSqliteConnection();
-        }
-    }
+    
     
     private function isLocalEnv(){
         if(ENVIRONMENT == 'DEVELOPMENT'){
