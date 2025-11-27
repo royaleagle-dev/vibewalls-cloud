@@ -9,8 +9,8 @@ class Database {
 
     private $pdo;
     
-    private $cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/vibewalls.sqlite';
-    private $cloudTempPath = '/tmp/vibewalls.sqlite';
+    private $cloudStoragePath;
+    private $cloudTempPath;
 
     public function downloadFromCloud() {
         $fileContent = file_get_contents($this->cloudStoragePath);
@@ -31,6 +31,10 @@ class Database {
 
 
     public function __construct(){
+        
+        $this->cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/vibewalls.sqlite';
+        $this->cloudTempPath = '/tmp/vibewalls.sqlite';
+
         if($this->isLocalEnv()){
             $this->pdo = $this->getLocalSqliteConnection();
         }else{
