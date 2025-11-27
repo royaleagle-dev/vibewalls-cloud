@@ -23,6 +23,6 @@ define("GCLOUD_BUCKET_NAME", 'vibewall-file-storage');
 define("GCLOUD_URL_ROOT", 'https://storage.googleapis.com/'.GCLOUD_BUCKET_NAME.'/'.'public/');
 
 define ("DATABASE_TYPE", "SQLITE"); //MYSQL - for mysqli database
-define ("ENVIRONMENT", "DEVELOPMENT"); //PRODUCTION - for launching
+define ("ENVIRONMENT", "PRODUCTION"); //PRODUCTION - for launching
 
 ?>
