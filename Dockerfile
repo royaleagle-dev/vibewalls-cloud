@@ -1,46 +1,29 @@
 FROM php:8.2-apache
 
-# Install system dependencies and PHP extensions
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    git \
-    curl \
-    && docker-php-ext-install pdo pdo_mysql mysqli gd mbstring exif
+# 1. Define the PORT variable (default is 8080 on Cloud Run)
+ENV PORT 8080
 
-# Enable Apache modules
-RUN a2enmod rewrite
+# 2. Install PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Configure Apache for Cloud Run (listen on port 8080)
-RUN echo "Listen 8080" > /etc/apache2/ports.conf
-RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/*.conf
-RUN sed -i 's/80/8080/g' /etc/apache2/apache2.conf
+# 3. Configure Apache to listen on the $PORT environment variable
+# a. Modify ports.conf to listen on the $PORT variable
+RUN sed -i -e "s/Listen 80/Listen \${PORT}/g" /etc/apache2/ports.conf
+# b. Modify the default VirtualHost to bind to the dynamic port
+RUN sed -i -e "s/<VirtualHost \*:80>/<VirtualHost \*:\${PORT}>/g" /etc/apache2/sites-available/000-default.conf
 
-# Copy the THREE elements to /var/www/html/
+# 4. Copy your THREE elements to document root
 COPY application/ /var/www/html/application/
 COPY public/ /var/www/html/public/
-COPY .htaccess /var/www/html/.htaccess
+COPY .htaccess /var/www/html/
 
-# Set proper permissions
+# 5. Enable Apache modules and set permissions
+RUN a2enmod rewrite
 RUN chown -R www-data:www-data /var/www/html
 
-# Create temporary directories for Cloud Run
+# 6. Create temporary directories for Cloud Run
 RUN mkdir -p /tmp/cache /tmp/uploads /tmp/sessions
 RUN chmod 755 /tmp/cache /tmp/uploads /tmp/sessions
 
-# Increase PHP limits for file uploads
-RUN echo "upload_max_filesize = 20M" >> /usr/local/etc/php/conf.d/uploads.ini
-RUN echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/uploads.ini
-RUN echo "max_execution_time = 120" >> /usr/local/etc/php/conf.d/uploads.ini
-
-# Use the PORT environment variable (Cloud Run requirement)
-ENV PORT 8080
+# 7. EXPOSE is now optional, but can stay for documentation
 EXPOSE 8080
-
-# Start Apache on the correct port
-CMD sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf && \
-    sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/*.conf && \
-    apache2-foreground
