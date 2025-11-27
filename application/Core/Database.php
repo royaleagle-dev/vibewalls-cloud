@@ -26,7 +26,7 @@ class Database {
     public function downloadFromCloud() {
         $fileContent = file_get_contents($this->cloudStoragePath);
         if ($fileContent !== false) {
-            return file_put_contents($this->$cloudTempPath, $fileContent);
+            return file_put_contents($this->cloudTempPath, $fileContent);
         }
         return false;
     }
@@ -68,7 +68,7 @@ class Database {
         // Your Cloud Run database connection (SQLite or MySQL)
         $this->shutdownUpload = new ShutdownUpload();
         $this->initializeDatabase();
-        $pdo = new PDO("sqlite:$cloudTempPath");
+        $pdo = new PDO("sqlite:$this->cloudTempPath");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
         $pdo->exec("PRAGMA foreign_keys = ON");
