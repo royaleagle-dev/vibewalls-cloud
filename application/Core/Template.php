@@ -2,6 +2,7 @@
 
 class Template{
     private $blocks = array();
+    private $cacheDir;
     
     public function __construct($template, $data){
         $this->setupCacheDir();
@@ -85,7 +86,7 @@ class Template{
 
     private function check_cache_dir(){
         //$fullPath = "../public/cache/";
-        $fullPath = $this->cacheDir();
+        $fullPath = $this->cacheDir;
         if (!is_dir($fullPath)){
             mkdir($fullPath, 0777, true);
         }
