@@ -16,7 +16,7 @@ class UploadGCS{
     public function upload(){
         try {
             // Get access token from Cloud Run metadata server
-            $accessToken = getCloudRunAccessToken();
+            $accessToken = $this->getCloudRunAccessToken();
             if (!$accessToken) {
                 throw new Exception('Failed to get access token from metadata server');
             }
