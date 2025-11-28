@@ -1,6 +1,10 @@
 <?php
 
 class Wallpapers extends Controller{
+
+    private $WallpaperModel;
+    private $CategoriesModel;
+    private $WallCatModel;
     
     public function __construct(){
         $this->WallpaperModel = $this->loadModel('WallpaperModel');
