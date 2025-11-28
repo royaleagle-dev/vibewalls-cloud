@@ -14,7 +14,7 @@ class Database {
     private $shutdownUpload;
 
     public function __construct(){   
-        $this->cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/vibewalls.sqlite';
+        $this->cloudStoragePath = 'https://storage.googleapis.com/vibewall-file-storage/public/vibewalls.sqlite';
         $this->cloudTempPath = '/tmp/vibewalls.sqlite';
         if($this->isLocalEnv()){
             $this->pdo = $this->getLocalSqliteConnection();
