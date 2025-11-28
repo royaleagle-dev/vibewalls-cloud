@@ -33,7 +33,7 @@ class Upload{
 
     public function upload_cloud_file(){
         $gcsPath = 'public/uploads/'. uniqid() . '_' . $file['name'];
-        $upload = new UploadGCS(GCLOUD_BUCKET_NAME, $this->file['tmp_name'], $gcsPath)
+        $upload = new UploadGCS(GCLOUD_BUCKET_NAME, $this->file['tmp_name'], $gcsPath);
         $upload = $upload->upload();
         if($upload){
             return([
