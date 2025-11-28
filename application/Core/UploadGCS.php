@@ -22,22 +22,22 @@ class UploadGCS{
             }
         
             // Read file content
-            $fileContent = file_get_contents($localFilePath);
+            $fileContent = file_get_contents($this->localFilePath);
             if ($fileContent === false) {
-                throw new Exception('Failed to read local file: ' . $localFilePath);
+                throw new Exception('Failed to read local file: ' . $this->localFilePath);
             }
         
             // Prepare upload URL and headers
-            $url = "https://storage.googleapis.com/upload/storage/v1/b/{$bucketName}/o";
+            $url = "https://storage.googleapis.com/upload/storage/v1/b/{$this->bucketName}/o";
             $params = [
                 'uploadType' => 'media',
-                'name' => $gcsPath
+                'name' => $this->gcsPath
             ];
         
             $headers = [
                 'Authorization: Bearer ' . $accessToken,
-                'Content-Type: ' . mime_content_type($localFilePath),
-                'Content-Length: ' . strlen($fileContent)
+                'Content-Type: ' . mime_content_type($this->localFilePath),
+                'Content-Length: ' . strlen($fileContent),
             ];
         
             // Upload file
@@ -57,7 +57,7 @@ class UploadGCS{
             curl_close($ch);
         
             if ($httpCode === 200) {
-                return "https://storage.googleapis.com/{$bucketName}/{$gcsPath}";
+                return "https://storage.googleapis.com/{$this->bucketName}/{$this->gcsPath}";
             } else {
                 throw new Exception("Upload failed. HTTP {$httpCode}: {$response} - {$error}");
             }
@@ -93,31 +93,31 @@ class UploadGCS{
 
 
 // Example usage
-function exampleUsage() {
-    $bucketName = 'your-bucket-name'; // Replace with your actual bucket
+// function exampleUsage() {
+//     $bucketName = 'your-bucket-name'; // Replace with your actual bucket
     
-    // Example 1: Upload a local file
-    $localFile = '/tmp/myfile.jpg';
-    $gcsPath = 'images/' . basename($localFile);
-    $publicUrl = uploadToGCS($bucketName, $localFile, $gcsPath);
+//     // Example 1: Upload a local file
+//     $localFile = '/tmp/myfile.jpg';
+//     $gcsPath = 'images/' . basename($localFile);
+//     $publicUrl = uploadToGCS($bucketName, $localFile, $gcsPath);
     
-    if ($publicUrl) {
-        echo "✅ Upload successful: " . $publicUrl;
-    } else {
-        echo "❌ Upload failed";
-    }
+//     if ($publicUrl) {
+//         echo "✅ Upload successful: " . $publicUrl;
+//     } else {
+//         echo "❌ Upload failed";
+//     }
     
-    // Example 2: Upload from uploaded file
-    if (isset($_FILES['userfile'])) {
-        $uploadedFile = $_FILES['userfile'];
-        $gcsPath = 'uploads/' . uniqid() . '_' . $uploadedFile['name'];
-        $publicUrl = uploadToGCS($bucketName, $uploadedFile['tmp_name'], $gcsPath);
+//     // Example 2: Upload from uploaded file
+//     if (isset($_FILES['userfile'])) {
+//         $uploadedFile = $_FILES['userfile'];
+//         $gcsPath = 'uploads/' . uniqid() . '_' . $uploadedFile['name'];
+//         $publicUrl = uploadToGCS($bucketName, $uploadedFile['tmp_name'], $gcsPath);
         
-        if ($publicUrl) {
-            echo "File uploaded: " . $publicUrl;
-        }
-    }
-}
+//         if ($publicUrl) {
+//             echo "File uploaded: " . $publicUrl;
+//         }
+//     }
+// }
 
 // Uncomment to test
 // exampleUsage();
