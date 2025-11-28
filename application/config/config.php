@@ -13,8 +13,8 @@ define('DATABASE', 'if0_40440508_vibewalls');
 
 //other site conf
 define ('SITE_NAME', 'VibeWalls');
-//define ('URL_ROOT', '/');
-define ('URL_ROOT', 'http://localhost/vibewalls_v2/');
+define ('URL_ROOT', '/');
+//define ('URL_ROOT', 'http://localhost/vibewalls_v2/');
 define ('BASE_MEDIA_ROOT', dirname(dirname(__DIR__)));
 define ('SYSTEM_ROOT', dirname(__DIR__));
 define ('BLOG_ADMIN_EMAIL', 'support@vibewalls');

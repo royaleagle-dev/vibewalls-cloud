@@ -1,6 +1,11 @@
 <?php
 
 class WallCatModel{
+    
+    private $db;
+    private $tbl;
+    private $sec1;
+    
     public function __construct(){
         $this->db = new Database();
         $this->tbl = 'wallpaper_categories';
