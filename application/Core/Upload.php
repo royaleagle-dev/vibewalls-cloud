@@ -32,14 +32,25 @@ class Upload{
     }
 
     public function upload_cloud_file(){
-
+        $gcsPath = 'public/uploads/'. uniqid() . '_' . $file['name'];
+        $upload = new UploadGCS(GCLOUD_BUCKET_NAME, $this->file['tmp_name'], $gcsPath)
+        $upload = $upload->upload();
+        if($upload){
+            return([
+                'upload_path' => '',
+                'upload_path_d' => $upload,
+                'status' => true,
+            ]);
+        }else{
+            return false;
+        }
     }
 
     public function upload_file(){
         if($this->isLocalEnv()){
             return $this->upload_local_file();
         }else{
-            $this->upload_cloud_file();
+            return $this->upload_cloud_file();
         }
     }
 
